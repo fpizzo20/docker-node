@@ -1,0 +1,17 @@
+swap_size: '2048'
+docker_user: "ubuntu"
+
+do_setup: true
+
+install_loki: true
+
+configure_ecr_iam: true
+
+docker_network:
+  - bip: "192.168.206.1/27"
+  - default_address_pools: 192.168.110.0/23
+  - default_address_pools_size: 27
+
+docker_registry: ""
+
+ntp_timezone: Europe/Berlin

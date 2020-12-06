@@ -1,0 +1,13 @@
+---
+- name: Ensures /etc/docker exists
+  when: do_setup
+  file: path=/etc/docker  state=directory
+
+- name: Copy docker-config
+  when: do_setup
+  template:
+    src: docker_config.json.j2
+    dest: /etc/docker/daemon.json
+    owner: "{{ docker_user }}"
+    group: "{{ docker_user }}"
+    mode: '0644'

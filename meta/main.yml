@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Francesco Pizzo
+  role_name: docker-node
+  description: Prepare your system to be managed by Ansible.
+  license: Apache-2.0
+  company: none
+  min_ansible_version: 2.8
+
+dependencies:
+  - fpizzo20.ubuntu_bootstrap
+  - geerlingguy.pip
+  - geerlingguy.docker

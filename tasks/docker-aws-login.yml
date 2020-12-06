@@ -1,0 +1,22 @@
+---
+- name: Install amazon-ecr-credential-helper
+  apt:
+    name: amazon-ecr-credential-helper
+    state: present
+    autoremove: true
+
+- name: Ensures /home/{{ docker_user }}/.docker dir exists
+  file:
+    path: /home/{{ docker_user }}/.docker
+    state: directory
+    owner: "{{ docker_user }}"
+    group: "{{ docker_user }}"
+    mode: '0755'
+
+- name: Copy docker-user-config
+  template:
+    src: docker_user_config.json.j2
+    dest: /home/{{ docker_user }}/.docker/config.json
+    owner: "{{ docker_user }}"
+    group: "{{ docker_user }}"
+    mode: '0644'

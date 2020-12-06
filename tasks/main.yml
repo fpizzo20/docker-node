@@ -1,0 +1,42 @@
+---
+- name: "Include ubuntu-bootstrap"
+  when: do_setup
+  include_role:
+    name: ubuntu-bootstrap
+  vars:
+    swap_file_size_mb: '{{ swap_size }}'
+
+- name: "Include geerlingguy.pip"
+  when: do_setup
+  include_role:
+    name: geerlingguy.pip
+
+- name: "Configure ECR IAM login"
+  when: configure_ecr_iam and do_setup
+  include_tasks: docker-aws-login.yml
+
+
+- name: "Include geerlingguy.docker"
+  when: do_setup
+  include_role:
+    name: geerlingguy.docker
+
+- name: "Install loki logging plugin"
+  when: install_loki and do_setup
+  include_tasks: loki.yml
+
+- name: "Configure docker networking"
+  when: do_setup
+  include_tasks: docker-config.yml
+
+- name: Ensures stacks dir exists
+  file:
+    path: /home/{{ docker_user }}/stacks
+    state: directory
+    owner: "{{ docker_user }}"
+    group: "{{ docker_user }}"
+    mode: '0755'
+
+- set_fact:
+    docker_node_stacks_dir: "/home/{{ docker_user }}/stacks"
+    docker_user: "{{ docker_user }}"

@@ -1,0 +1,9 @@
+---
+- name: "List docker plugins named loki:"
+  shell: "docker plugin ls | grep 'loki:' | wc -l"
+  register: docker_plugin_list_loki
+  changed_when: false
+
+- name: Intall docker plugin for loki
+  shell: docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
+  when: docker_plugin_list_loki.stdout == '0'
