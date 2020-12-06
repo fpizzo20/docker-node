@@ -37,6 +37,7 @@
     group: "{{ docker_user }}"
     mode: '0755'
 
-- set_fact:
+- name: "Set useful references"
+  set_fact:
     docker_node_stacks_dir: "/home/{{ docker_user }}/stacks"
     docker_user: "{{ docker_user }}"
