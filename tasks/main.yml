@@ -2,7 +2,7 @@
 - name: "Include ubuntu-bootstrap"
   when: do_setup
   include_role:
-    name: ubuntu-bootstrap
+    name: fpizzo20.ubuntu_bootstrap
   vars:
     swap_file_size_mb: '{{ swap_size }}'
 
